@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import Axios from "axios";
 
 function App() {
   const [todolist, settodolist] = useState([]);
@@ -34,6 +35,13 @@ function App() {
     );
   };
 
+  const [excuse, setexcuse] = useState("");
+  const fetchExcuse = (excuse) => {
+    Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}`).then((res)=>{
+      setexcuse(res.data[0].excuse);
+    })
+  }
+
   return (
     <div className="App">
       <h1>TodoList App</h1>
@@ -51,7 +59,12 @@ function App() {
             );
           })}
         </div>
-      </div>
+      </div><br></br><hr></hr>
+      <h2>Wanna get rid of these task? &#128540; Make an excuse about: </h2>
+      <button onClick={()=>fetchExcuse("party")}>Party</button>
+      <button onClick={()=>fetchExcuse("family")}>Family</button>
+      <button onClick={()=>fetchExcuse("office")}>Office</button>
+      <br></br><p>{excuse}</p>
     </div>
   );
 }
