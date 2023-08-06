@@ -37,34 +37,48 @@ function App() {
 
   const [excuse, setexcuse] = useState("");
   const fetchExcuse = (excuse) => {
-    Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}`).then((res)=>{
-      setexcuse(res.data[0].excuse);
-    })
-  }
+    Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}`).then(
+      (res) => {
+        setexcuse(res.data[0].excuse);
+      }
+    );
+  };
 
   return (
     <div className="App">
       <h1>TodoList App</h1>
       <div>
-        <input onChange={change}></input>
+        <input title="Add anything" onChange={change}></input>
         <button onClick={add}>Add Task</button>
         <div className="task">
           {todolist.map((task) => {
             return (
-              <div className="todolist" style={{ backgroundColor: task.done ? "rgb(124, 252, 0)" : "white" }}>
+              <div
+                className="todolist"
+                style={{
+                  backgroundColor: task.done ? "rgb(124, 252, 0)" : "white",
+                }}
+              >
                 <h1 contentEditable>{task.taskname}</h1>
-                <button className="done" onClick={() => done(task.id)}>Done</button>
-                <button className="remove" onClick={() => remove(task)}>X</button>
+                <button className="done" onClick={() => done(task.id)}>
+                  Done
+                </button>
+                <button className="remove" onClick={() => remove(task)}>
+                  X
+                </button>
               </div>
             );
           })}
         </div>
-      </div><br></br><hr></hr>
+      </div>
+      <br></br>
+      <hr></hr>
       <h2>Wanna get rid of these task? &#128540; Make an excuse about: </h2>
-      <button onClick={()=>fetchExcuse("party")}>Party</button>
-      <button onClick={()=>fetchExcuse("family")}>Family</button>
-      <button onClick={()=>fetchExcuse("office")}>Office</button>
-      <br></br><p>{excuse}</p>
+      <button onClick={() => fetchExcuse("party")}>Party</button>
+      <button onClick={() => fetchExcuse("family")}>Family</button>
+      <button onClick={() => fetchExcuse("office")}>Office</button>
+      <br></br>
+      <p>{excuse}</p>
     </div>
   );
 }
